@@ -14,9 +14,9 @@ public class DatabaseInitializer {
 
     public static void initialize() {
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db")) {
-
-            Statement stmt = conn.createStatement();
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db");
+            Statement stmt = conn.createStatement()
+        ) {
 
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS habits (
