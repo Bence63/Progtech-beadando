@@ -13,6 +13,7 @@ public class DatabaseInitializer {
     private static final Logger logger = LogManager.getLogger(DatabaseInitializer.class);
 
     public static void initialize() {
+
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db")) {
 
             Statement stmt = conn.createStatement();
