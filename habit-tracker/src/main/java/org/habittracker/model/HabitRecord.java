@@ -1,4 +1,4 @@
-package org.habittracker;
+package org.habittracker.model;
 
 import java.time.LocalDate;
 

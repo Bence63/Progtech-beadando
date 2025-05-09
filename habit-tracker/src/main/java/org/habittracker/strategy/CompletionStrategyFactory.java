@@ -1,4 +1,4 @@
-package org.habittracker;
+package org.habittracker.strategy;
 
 public class CompletionStrategyFactory {
     public static CompletionStrategy getStrategy(String type) {

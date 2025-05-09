@@ -1,4 +1,7 @@
-package org.habittracker;
+package org.habittracker.service;
+
+import org.habittracker.model.Habit;
+import org.habittracker.repository.HabitRepository;
 
 import java.time.LocalDate;
 import java.util.List;
