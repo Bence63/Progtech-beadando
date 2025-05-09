@@ -7,8 +7,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class HabitRepository {
     private static final Logger logger = LogManager.getLogger(HabitRepository.class);
@@ -64,7 +62,7 @@ public class HabitRepository {
             }
 
         } catch (SQLException e) {
-            logger.error("Hiba történt beszúrás közben", e);
+            logger.error("Hiba történt szokások lekérdezésekor", e);
 
         }
 

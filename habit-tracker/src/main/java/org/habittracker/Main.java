@@ -10,10 +10,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //logger.info("Info üzenet: a program elindult.");
-        //logger.warn("Figyelmeztetés: valami nem oké.");
-        //logger.error("Hiba: valami tényleg elromlott.");
-
         DatabaseInitializer.initialize();
 
         HabitRepository repo = new HabitRepository();
@@ -23,9 +19,8 @@ public class Main {
 
         for (Habit h : repo.findAll()) {
             logger.info("Szokás: {} (típus: {})", h.getName(), h.getType());
+        }
 
-
-            // Később: Application.launch(App.class, args);
+        // Később: Application.launch(App.class, args)
     }
-}
 }
