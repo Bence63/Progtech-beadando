@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 
 public class Main {
-
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
@@ -16,7 +15,6 @@ public class Main {
         //logger.error("Hiba: valami tényleg elromlott.");
 
         DatabaseInitializer.initialize();
-        logger.info("Habit Tracker projekt elindult.");
 
         HabitRepository repo = new HabitRepository();
 
@@ -24,8 +22,10 @@ public class Main {
         repo.insert(habit);
 
         for (Habit h : repo.findAll()) {
-            System.out.println(h.getName() + " (" + h.getType() + ")");
+            logger.info("Szokás: {} (típus: {})", h.getName(), h.getType());
 
+
+            // Később: Application.launch(App.class, args);
     }
 }
 }

@@ -11,14 +11,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class HabitRepository {
-
     private static final Logger logger = LogManager.getLogger(HabitRepository.class);
 
     public void insert(Habit habit) {
         String sql = "INSERT INTO habits (name, type, isImportant, isRewarded, created_at) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db");
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db");
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
 
             stmt.setString(1, habit.getName());
             stmt.setString(2, habit.getType());
@@ -26,9 +27,19 @@ public class HabitRepository {
             stmt.setInt(4, habit.isRewarded() ? 1 : 0);
             stmt.setString(5, habit.getCreatedAt().toString());
 
-            stmt.executeUpdate();
+            int affected = stmt.executeUpdate();
+            if (affected == 0) {
+                logger.warn("Nem szúrt be egyetlen sort sem a habits táblába.");
+            } else {
+
+                try (ResultSet keys = stmt.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        habit.setId(keys.getInt(1));
+                    }
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Hiba szokás beszúrásakor", e);
         }
     }
 
@@ -59,5 +70,7 @@ public class HabitRepository {
 
         return habits;
     }
+
+    // Később: delete(id), update(habit), findById(id) stb.
 }
 
