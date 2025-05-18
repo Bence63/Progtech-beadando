@@ -1,5 +1,6 @@
 package org.habittracker.ui.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -26,19 +27,30 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        habitListView.getItems().addAll(habitService.getAllHabits());
         datePicker.setValue(LocalDate.now());
+        habitListView.setItems(FXCollections.observableArrayList(habitService.getPendingHabits(datePicker.getValue())));
     }
 
     @FXML
     public void handleMarkCompleted() {
         Habit selected = habitListView.getSelectionModel().getSelectedItem();
-        if (selected != null && datePicker.getValue() != null) {
-            habitService.completeHabit(selected.getId(), datePicker.getValue());
+        LocalDate date = datePicker.getValue();    // ← IDE KIVISSZÜK
+
+        if (selected != null && date != null) {
+            habitService.completeHabit(selected, date);
+
+            // most már látja a 'date'-et
+            habitListView.setItems(
+                    FXCollections.observableArrayList(
+                            habitService.getPendingHabits(date)
+                    )
+            );
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Szokás teljesítve!");
             alert.showAndWait();
         }
     }
+
 
     @FXML
     public void handleShowStatistics() {

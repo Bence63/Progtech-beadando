@@ -9,6 +9,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HabitRecordRepository {
 
@@ -46,4 +49,29 @@ public class HabitRecordRepository {
             logger.error("Hiba a HabitRecord beszúrásakor", e);
         }
     }
+
+    public List<HabitRecord> findByHabitId(int habitId) {
+        List<HabitRecord> records = new ArrayList<>();
+        String sql = "SELECT * FROM habit_records WHERE habit_id = " + habitId;
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db");
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int hId = rs.getInt("habit_id");
+                LocalDate date = LocalDate.parse(rs.getString("date"));
+                boolean completed = rs.getBoolean("completed");
+
+                records.add(new HabitRecord(id, hId, date, completed));
+            }
+
+        } catch (SQLException e) {
+            logger.error("Hiba a habit rekordok lekérdezésekor", e);
+        }
+
+        return records;
+    }
+
 }
