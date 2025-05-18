@@ -22,4 +22,12 @@ public class HabitService {
     public List<Habit> getAllHabits() {
         return repository.findAll();
     }
+
+    public void completeHabit(int habitId, LocalDate date) {
+        // Ideiglenes egyszerű implementáció (ha nincs HabitRecordRepo):
+        System.out.println("Szokás ID " + habitId + " teljesítve " + date + " napon.");
+        // Itt majd beszúrhatod a HabitRecord-ot, ha van olyan repo
+    }
+
+
 }

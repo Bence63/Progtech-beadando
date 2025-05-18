@@ -5,6 +5,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import org.habittracker.model.Habit;
 import org.habittracker.service.HabitService;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
+
 
 import java.time.LocalDate;
 
