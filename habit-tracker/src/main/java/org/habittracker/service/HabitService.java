@@ -1,5 +1,7 @@
 package org.habittracker.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.habittracker.decorator.ImportantHabitDecorator;
 import org.habittracker.decorator.RewardedHabitDecorator;
 import org.habittracker.model.Habit;
@@ -13,15 +15,21 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class HabitService {
 
+
+    private static final Logger logger = LogManager.getLogger(HabitService.class);
     private final HabitRepository repository;
     private final HabitRecordRepository recordRepository = new HabitRecordRepository();
+
 
 
     public HabitService(HabitRepository repository) {
         this.repository = repository;
     }
+
+
 
     public void addHabit(String name, String type, boolean important, boolean rewarded) {
         Habit habit = new Habit(name, type, important, rewarded, LocalDate.now());
@@ -41,12 +49,18 @@ public class HabitService {
 
 
     public void completeHabit(Habit habit, LocalDate date) {
+        logger.info(">>> completeHabit() meghívva");
         CompletionStrategy strategy = CompletionStrategyFactory.getStrategy(habit.getType());
         List<HabitRecord> records = recordRepository.findByHabitId(habit.getId());
 
-        if (strategy.isCompleted(habit, records, date)) {
+        boolean isCompleted = strategy.isCompleted(habit, records, date);
+        logger.info("Strategy.isCompleted(...) = " + isCompleted);
+        logger.info("Habit ID: " + habit.getId() + " → korábbi rekordok száma: " + records.size());
+        if (!strategy.isCompleted(habit, records, date)) {
             recordRepository.insert(new HabitRecord(habit.getId(), date, true));
+            logger.info("Habit completed → id=" + habit.getId() + ", date=" + date);
         }
+
     }
 
     public List<Habit> getPendingHabits(LocalDate date) {
