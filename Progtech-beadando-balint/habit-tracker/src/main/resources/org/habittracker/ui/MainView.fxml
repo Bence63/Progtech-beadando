@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.ui.controller.MainController">
+    <top>
+        <ToolBar>
+            <Button text="Új szokás" onAction="#handleAddHabit"/>
+            <Button text="Statisztika" onAction="#handleShowStatistics"/>
+            <DatePicker fx:id="datePicker" />
+        </ToolBar>
+    </top>
+    <center>
+        <VBox spacing="10" padding="10">
+            <ListView fx:id="habitListView" />
+            <Button text="Kijelölt szokás teljesítve" onAction="#handleMarkCompleted"/>
+        </VBox>
+    </center>
+</BorderPane>
