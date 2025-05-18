@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.ui.controller.StatisticsController" spacing="10" alignment="CENTER" padding="20">
-    <Label text="Teljesített szokások száma:" />
-    <Label fx:id="completedCountLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-</VBox>
