@@ -37,7 +37,7 @@ public class MainController {
     @FXML
     public void handleShowStatistics() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/habittracker/ui/StatisticsView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/habit-tracker/src/main/resources/org/habittracker/ui/StatisticsView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Statisztikák");
@@ -51,7 +51,7 @@ public class MainController {
     @FXML
     public void handleAddHabit() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/habittracker/ui/NewHabitDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/habit-tracker/src/main/resources/org/habittracker/ui/NewHabitDialog.fxml"));
             Parent root = loader.load();
             Stage dialog = new Stage();
             dialog.setTitle("Új szokás hozzáadása");
