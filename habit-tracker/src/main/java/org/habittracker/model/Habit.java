@@ -31,4 +31,13 @@ public class Habit {
 
     public void setId(int id) { this.id = id; }
 
+    @Override
+    public String toString() {
+        return name + " (" + type + ")" +
+                (isImportant ? " [Fontos]" : "") +
+                (isRewarded ? " [Jutalmazott]" : "");
+    }
 }
+
+
+
