@@ -71,5 +71,20 @@ public class HabitRepository {
     }
 
     // Később: delete(id), update(habit), findById(id) stb.
+
+    public void markCompleted(int habitId, LocalDate date) {
+        String sql = "INSERT INTO habit_records (habit_id, date, completed) VALUES (?, ?, 1)";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, habitId);
+            stmt.setString(2, date.toString());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.error("Nem sikerült rögzíteni a teljesítést", e);
+        }
+    }
 }
 
