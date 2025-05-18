@@ -2,6 +2,7 @@ package org.habittracker.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.habittracker.model.HabitRecord;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,5 +30,20 @@ public class HabitRecordRepository {
         }
 
         return 0;
+    }
+
+    public void insert(HabitRecord record) {
+        String sql = "INSERT INTO habit_records (habit_id, date, completed) VALUES ("
+                + record.getHabitId()   + ", '"
+                + record.getDate()      + "', "
+                + (record.isCompleted() ? 1 : 0) + ")";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:habit.db");
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+            logger.info("HabitRecord beszúrva: " + record);
+        } catch (SQLException e) {
+            logger.error("Hiba a HabitRecord beszúrásakor", e);
+        }
     }
 }

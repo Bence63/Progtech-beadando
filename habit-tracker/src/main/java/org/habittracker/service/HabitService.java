@@ -1,6 +1,8 @@
 package org.habittracker.service;
 
 import org.habittracker.model.Habit;
+import org.habittracker.model.HabitRecord;
+import org.habittracker.repository.HabitRecordRepository;
 import org.habittracker.repository.HabitRepository;
 
 import java.time.LocalDate;
@@ -9,6 +11,8 @@ import java.util.List;
 public class HabitService {
 
     private final HabitRepository repository;
+    private final HabitRecordRepository recordRepository = new HabitRecordRepository();
+
 
     public HabitService(HabitRepository repository) {
         this.repository = repository;
@@ -24,10 +28,10 @@ public class HabitService {
     }
 
     public void completeHabit(int habitId, LocalDate date) {
-        // Ideiglenes egyszerű implementáció (ha nincs HabitRecordRepo):
-        System.out.println("Szokás ID " + habitId + " teljesítve " + date + " napon.");
-        // Itt majd beszúrhatod a HabitRecord-ot, ha van olyan repo
+        HabitRecord record = new HabitRecord(habitId, date, true);
+        recordRepository.insert(record);
     }
+
 
 
 }
