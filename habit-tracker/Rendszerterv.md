@@ -106,7 +106,6 @@ A tesztelések célja a rendszer és komponensei funkcionalitásának teljes viz
 
 Teszteset                   | Elvárt eredmény
 
-Bábu kiválasztása           | A bábu kijelölhető
 
 Szokás létrehozása            | Új szokás sikeresen hozzáadódik a listához és az adatbázishoz.
 
