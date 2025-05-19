@@ -29,6 +29,12 @@ public class MainController {
     public void initialize() {
         datePicker.setValue(LocalDate.now());
         habitListView.setItems(FXCollections.observableArrayList(habitService.getPendingHabits(datePicker.getValue())));
+
+        datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
+            if (newDate != null) {
+                habitListView.getItems().setAll(habitService.getPendingHabits(newDate));
+            }
+        });
     }
 
     @FXML
