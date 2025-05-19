@@ -39,7 +39,6 @@ public class MainController {
             }
         });
 
-        // CheckBox-os megjelenítés
         habitListView.setCellFactory(lv -> new CheckBoxListCell<>(habit -> {
             BooleanProperty selected = new SimpleBooleanProperty();
 
@@ -47,8 +46,16 @@ public class MainController {
                 if (isNowSelected) {
                     habitService.completeHabit(habit, datePicker.getValue());
                     habitListView.getItems().setAll(habitService.getPendingHabits(datePicker.getValue()));
+
+                    // felugró értesítés
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Szokás teljesítve");
+                    alert.setHeaderText(null);
+                    alert.setContentText("A(z) \"" + habit.getName() + "\" szokás teljesítve lett!");
+                    alert.showAndWait();
                 }
             });
+
 
             return selected;
         }) {
