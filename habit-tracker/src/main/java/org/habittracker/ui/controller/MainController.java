@@ -1,8 +1,11 @@
 package org.habittracker.ui.controller;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.MouseEvent;
 import org.habittracker.model.Habit;
 import org.habittracker.service.HabitService;
@@ -35,6 +38,29 @@ public class MainController {
                 habitListView.getItems().setAll(habitService.getPendingHabits(newDate));
             }
         });
+
+        // CheckBox-os megjelenítés
+        habitListView.setCellFactory(lv -> new CheckBoxListCell<>(habit -> {
+            BooleanProperty selected = new SimpleBooleanProperty();
+
+            selected.addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    habitService.completeHabit(habit, datePicker.getValue());
+                    habitListView.getItems().setAll(habitService.getPendingHabits(datePicker.getValue()));
+                }
+            });
+
+            return selected;
+        }) {
+            @Override
+            public void updateItem(Habit habit, boolean empty) {
+                super.updateItem(habit, empty);
+                if (habit != null && !empty) {
+                    setText(habit.toString()); // vagy habit.getName()
+                }
+            }
+        });
+
     }
 
     @FXML
