@@ -75,7 +75,7 @@ public class MainController {
             dialog.setTitle("Új szokás hozzáadása");
             dialog.setScene(new Scene(root));
             dialog.showAndWait();
-            habitListView.getItems().setAll(habitService.getAllHabits());
+            habitListView.getItems().setAll(habitService.getPendingHabits(datePicker.getValue()));
         } catch (IOException e) {
             e.printStackTrace();
         }
