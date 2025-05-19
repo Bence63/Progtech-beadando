@@ -68,11 +68,11 @@ public class HabitService {
                 .filter(habit -> {
                     var strategy = CompletionStrategyFactory.getStrategy(habit.getType());
                     var records  = recordRepository.findByHabitId(habit.getId());
-                    // csak azok jöjjenek, ahol még NEM teljesült a kiválasztott időszakra
+
                     return !strategy.isCompleted(habit, records, date);
                 })
                 .map(habit -> {
-                    // dekorátorozd is
+                    // dekorátor
                     Habit d = new ImportantHabitDecorator(habit);
                     return habit.isRewarded() ? new RewardedHabitDecorator(d) : d;
                 })

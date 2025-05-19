@@ -16,7 +16,7 @@
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
             <ListView fx:id="habitListView" />
-            <Button text="Kijelölt szokás teljesítve" onAction="#handleMarkCompleted"/>
+
         </VBox>
     </center>
 </BorderPane>
